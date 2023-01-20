@@ -21,6 +21,9 @@
             <form class="form-inline">
                 <label class="sr-only" for="inlineFormInputName">Name</label>
                 <input type="text" class="form-control mb-3 mr-sm-3" id="stuName" placeholder="name">
+
+                <label class="sr-only" for="inlineFormInputAge">Age</label>
+                <input type="text" class="form-control mb-3 mr-sm-3" id="age" placeholder="age">
             
                 <label class="sr-only" for="inlineFormInputCity">city</label>
                 <input type="text" class="form-control mb-3 mr-sm-3" id="city" placeholder="city">
@@ -55,9 +58,10 @@
             <tr>
                 <td><button onclick='updStudent(${stu.id})'type="submit" class="btn btn-primary mb-2">update</button></td>
                 <td><button onclick='delStudent(${stu.id})'type="submit" class="btn btn-primary mb-2">del - ${stu.id}</button></td>
-                <td>${stu.name}</td>
-                <td>${stu.city}</td>
                 <td>${stu.id}</td>
+                <td>${stu.name}</td>
+                <td>${stu.age}</td>
+                <td>${stu.city}</td>
             </tr>`).join("")
             
             myInnerHtml = `
@@ -66,9 +70,10 @@
                     <tr>
                     <th scope="col">Update</th>
                     <th scope="col">Delete</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">City</th>
                     <th scope="col">ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Age</th>                    
+                    <th scope="col">City</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -90,7 +95,7 @@
         // post (Create)
         const addData =async () => {
             console.log("calling post")
-            await axios.post(MY_SERVER+"/", { city: city.value, name: stuName.value }).then((res) => console.log(res.data))
+            await axios.post(MY_SERVER+"/", { city: city.value, name: stuName.value, age: age.value}).then((res) => console.log(res.data))
             loadData()
         }
 
@@ -103,7 +108,7 @@
 
         const updStudent =async (id) => {
             // put (update)
-            const res=await axios.put(MY_SERVER +"/"+ id,{ city: city.value, name: stuName.value })
+            const res=await axios.put(MY_SERVER +"/"+ id,{ city: city.value, name: stuName.value, age: age.value})
             console.log(res)
             loadData()
         }

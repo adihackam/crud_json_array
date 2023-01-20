@@ -28,15 +28,15 @@ def save2File(students):
 def crude_students(id=-1):
     if request.method == 'POST':
         request_data = request.get_json()
-        city = request_data['city']
         name= request_data["name"]
-
+        age = request_data["age"]
+        city = request_data['city']
         students = loadFromFile() 
         maxId = 0
         for stu in students:
             if stu['id'] > maxId : 
                 maxId = stu['id']
-        newStudent = {"id":maxId + 1, "name": name, "city": city}
+        newStudent = {"id":maxId + 1, "name": name, "age": age, "city": city}
         students.append(newStudent)
         save2File(students)
         return {"msg":"new student was added"} 
@@ -45,7 +45,7 @@ def crude_students(id=-1):
         res=[]
         students = loadFromFile() 
         for student in students:
-            res.append({"city":student['city'],"id":student['id'],"name":student['name']})
+            res.append({"city":student['city'],"id":student['id'],"name":student['name'], "age":student['age']})
         return  res
         # return  (json.dumps(res))
     if request.method == 'DELETE': 
@@ -62,6 +62,7 @@ def crude_students(id=-1):
         for stu in students:
             if stu['id'] == int(id): 
                 stu['city'] = request_data['city']
+                stu['age'] = request_data['age']
                 stu['name']= request_data['name']
         save2File(students)
         return {"msg":"student updated"}
